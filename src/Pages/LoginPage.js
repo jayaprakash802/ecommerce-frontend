@@ -22,7 +22,7 @@ const LoginPage = () => {
 
         // Clear the error and log the credentials (replace this with actual API call)
         try {
-            const response = await axios.post("http://localhost:8090/api/auth/login", {
+            const response = await axios.post("http://localhost:8082/api/auth/login", {
               username,
               password,
             });

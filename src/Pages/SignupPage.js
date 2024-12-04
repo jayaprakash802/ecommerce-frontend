@@ -14,7 +14,7 @@ function Register() {
       
       if (response.status === 201) {
         alert("Registration successful! Navigating to login page");
-        navigate("/login"); // Redirect to login page
+        navigate("/"); // Redirect to login page
       }
     } catch (error) {
       console.error(error);

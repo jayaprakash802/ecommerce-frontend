@@ -10,7 +10,7 @@ function Register() {
     
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8090/api/auth/register", form);
+      const response = await axios.post("http://localhost:8082/api/auth/register", form);
       
       if (response.status === 201) {
         alert("Registration successful! Navigating to login page");

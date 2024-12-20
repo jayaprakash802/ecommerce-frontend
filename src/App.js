@@ -7,6 +7,11 @@ import ProductListing from './Pages/ProductListing';
 import LoginPage from './Pages/LoginPage';
 import Register from './Pages/SignupPage';
 import ProductDetails from './Pages/ProductDetails';
+import CartPage from "./Pages/CartPage";
+import AboutUs from "./Pages/AboutUs";
+import ContactUs from "./Pages/ContactUs";
+import ProfilePage from "./Pages/ProfilePage";
+
 
 const App = () => {
     return (
@@ -20,6 +25,10 @@ const App = () => {
                         <Route path="/products" element={<ProductListing />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/products/:id" element={<ProductDetails />} />
+                        <Route path="/cart" element={<CartPage />} />
+                        <Route path="/about" element={<AboutUs />} />
+                        <Route path="/contact" element={<ContactUs />} />
+                        <Route path="/profile" element={<ProfilePage />} />
                     </Routes>
                 </main>
                 <Footer />

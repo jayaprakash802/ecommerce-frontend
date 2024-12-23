@@ -8,6 +8,7 @@ const ProductDetails = () => {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const userId = 3; // Replace with actual logged-in user ID
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -24,10 +25,26 @@ const ProductDetails = () => {
         fetchProduct();
     }, [id]);
 
-    const handleAddToCart = () => {
-        // Logic to add product to cart
-        console.log(`Added ${product.name} to cart.`);
-        alert(`${product.name} added to cart!`);
+    const handleAddToCart = async () => {
+        const quantity = 1; // Default quantity to add (can be made dynamic if needed)
+
+        try {
+            const response = await axios.post(
+                `http://localhost:8083/cart/${userId}/add`,
+                null, // No request body needed; parameters are passed as query params
+                {
+                    params: {
+                        productId: id,
+                        quantity,
+                    },
+                }
+            );
+            console.log("Cart updated:", response.data);
+            alert(`${product.name} added to cart successfully!`);
+        } catch (err) {
+            console.error("Error adding product to cart:", err);
+            alert("Failed to add product to cart. Please try again.");
+        }
     };
 
     const handleBuyNow = () => {

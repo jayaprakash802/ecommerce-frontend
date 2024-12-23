@@ -79,3 +79,55 @@ body {
 .footer-links a:hover {
     color: white;
 }
+
+/* Header Styles */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #096f6f;
+    color: white;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.header-logo-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+.header-logo-text {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.header-nav {
+    display: flex;
+    gap: 15px;
+}
+
+.header-nav a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.header-nav a:hover {
+    background-color: #005f47;
+}

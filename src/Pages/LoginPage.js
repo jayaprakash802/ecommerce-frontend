@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react';
+import React, { useState } from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -38,8 +38,6 @@ const LoginPage = () => {
                     },
                 });
 
-                const userData = response.data;
-                console.log(response.data.id);
                 sessionStorage.setItem('userId', response.data.id);
 
                 // Redirect to Product Listing page
@@ -52,8 +50,6 @@ const LoginPage = () => {
 
         setError('');
     };
-
-    
 
     return (
         <div className="login-container">

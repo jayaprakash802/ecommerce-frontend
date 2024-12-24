@@ -8,7 +8,7 @@ const ProductDetails = () => {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const userId = 3; // Replace with actual logged-in user ID
+    const userId = sessionStorage.getItem("userId");
 
     useEffect(() => {
         const fetchProduct = async () => {

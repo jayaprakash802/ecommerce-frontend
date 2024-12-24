@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Make sure you are using react-router-dom for navigation
 import "./ProfilePage.css";
 
 const ProfilePage = () => {
@@ -12,7 +11,7 @@ const ProfilePage = () => {
     });
     const [updatedUser, setUpdatedUser] = useState({ ...user });
     const [loading, setLoading] = useState(true);
-    const navigate = useNavigate(); // Hook for navigation
+    
 
     useEffect(() => {
         const fetchUserDetails = async () => {
@@ -32,8 +31,6 @@ const ProfilePage = () => {
                 });
 
                 const userData = response.data;
-                console.log(response.data.id);
-                sessionStorage.setItem('userId', response.data.id);
                 const { username: name, email, role } = userData;
                 setUser({ name, email, role });
                 setUpdatedUser({ name, email, role });
@@ -82,10 +79,7 @@ const ProfilePage = () => {
         }
     };
 
-    const handleLogout = () => {
-        sessionStorage.removeItem("authToken"); // Remove the token from session storage
-        navigate("/"); // Navigate to the login page
-    };
+    
 
     if (loading) {
         return <div>Loading...</div>;

@@ -10,35 +10,37 @@ const LoginPage = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Basic validation
         if (!username || !password) {
-            setError('Email and Password are required.');
+            setError('Username and Password are required.');
             return;
         }
 
-        // Clear the error and log the credentials (replace this with actual API call)
         try {
+            // API call to login endpoint
             const response = await axios.post("http://localhost:8082/api/auth/login", {
-              username,
-              password,
+                username,
+                password,
             });
+
+            // Check if login was successful
             if (response.status === 200) {
+                // Save token in session storage
+                const token = btoa(`${username}:${password}`); // Encoding credentials
+                sessionStorage.setItem('authToken', token);
+
                 // Redirect to Product Listing page
                 navigate("/products");
-              }
-            //alert(response.data);
-          } catch (error) {
-            console.error(error);
-            alert("Login failed");
-          }
-        setError('');
-        console.log('Login successful:', { username, password });
+            }
+        } catch (error) {
+            console.error("Login failed:", error);
+            setError("Invalid username or password. Please try again.");
+        }
 
-        // Redirect or perform other actions on successful login
+        setError('');
     };
 
     return (

@@ -6,7 +6,7 @@ const CartPage = () => {
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const userId = 3; // Replace with the actual user ID
+    const userId = sessionStorage.getItem("userId");
 
     // Fetch cart items from the API
     useEffect(() => {

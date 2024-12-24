@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -32,6 +32,16 @@ const LoginPage = () => {
                 const token = btoa(`${username}:${password}`); // Encoding credentials
                 sessionStorage.setItem('authToken', token);
 
+                const response = await axios.get("http://localhost:8082/api/auth/user/details", {
+                    headers: {
+                        Authorization: `Basic ${token}`,
+                    },
+                });
+
+                const userData = response.data;
+                console.log(response.data.id);
+                sessionStorage.setItem('userId', response.data.id);
+
                 // Redirect to Product Listing page
                 navigate("/products");
             }
@@ -42,6 +52,8 @@ const LoginPage = () => {
 
         setError('');
     };
+
+    
 
     return (
         <div className="login-container">

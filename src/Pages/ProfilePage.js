@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Make sure you are using react-router-dom for navigation
 import "./ProfilePage.css";
 
 const ProfilePage = () => {
@@ -11,11 +12,11 @@ const ProfilePage = () => {
     });
     const [updatedUser, setUpdatedUser] = useState({ ...user });
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate(); // Hook for navigation
 
     useEffect(() => {
         const fetchUserDetails = async () => {
             try {
-                // Retrieve the token from session storage
                 const token = sessionStorage.getItem("authToken");
 
                 if (!token) {
@@ -24,7 +25,6 @@ const ProfilePage = () => {
                     return;
                 }
 
-                // Fetch user details with the token
                 const response = await axios.get("http://localhost:8082/api/auth/user/details", {
                     headers: {
                         Authorization: `Basic ${token}`,
@@ -32,6 +32,8 @@ const ProfilePage = () => {
                 });
 
                 const userData = response.data;
+                console.log(response.data.id);
+                sessionStorage.setItem('userId', response.data.id);
                 const { username: name, email, role } = userData;
                 setUser({ name, email, role });
                 setUpdatedUser({ name, email, role });
@@ -56,7 +58,6 @@ const ProfilePage = () => {
 
     const handleSave = async () => {
         try {
-            // Retrieve the token from session storage
             const token = sessionStorage.getItem("authToken");
 
             if (!token) {
@@ -64,7 +65,6 @@ const ProfilePage = () => {
                 return;
             }
 
-            // Optionally send the updated user data to an API to save changes
             await axios.put(
                 "http://localhost:8082/api/auth/user/update",
                 updatedUser,
@@ -80,6 +80,11 @@ const ProfilePage = () => {
         } catch (error) {
             console.error("Error updating user details:", error);
         }
+    };
+
+    const handleLogout = () => {
+        sessionStorage.removeItem("authToken"); // Remove the token from session storage
+        navigate("/"); // Navigate to the login page
     };
 
     if (loading) {

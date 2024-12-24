@@ -1,27 +1,48 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./ProfilePage.css";
 
 const ProfilePage = () => {
-    // Mock user data (replace this with API call or authentication context)
-    const loggedInUser = {
-        name: "John Doe",
-        email: "john.doe@example.com",
-        role: "Admin",
-    };
-
     const [isEditing, setIsEditing] = useState(false);
     const [user, setUser] = useState({
         name: "",
         email: "",
         role: "",
     });
-
     const [updatedUser, setUpdatedUser] = useState({ ...user });
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Populate user details on load (replace with actual API call)
-        setUser(loggedInUser);
-        setUpdatedUser(loggedInUser);
+        const fetchUserDetails = async () => {
+            try {
+                // Retrieve the token from session storage
+                const token = sessionStorage.getItem("authToken");
+
+                if (!token) {
+                    console.error("No token found in session storage");
+                    setLoading(false);
+                    return;
+                }
+
+                // Fetch user details with the token
+                const response = await axios.get("http://localhost:8082/api/auth/user/details", {
+                    headers: {
+                        Authorization: `Basic ${token}`,
+                    },
+                });
+
+                const userData = response.data;
+                const { username: name, email, role } = userData;
+                setUser({ name, email, role });
+                setUpdatedUser({ name, email, role });
+                setLoading(false);
+            } catch (error) {
+                console.error("Error fetching user details:", error);
+                setLoading(false);
+            }
+        };
+
+        fetchUserDetails();
     }, []);
 
     const handleEditToggle = () => {
@@ -33,11 +54,37 @@ const ProfilePage = () => {
         setUpdatedUser({ ...updatedUser, [name]: value });
     };
 
-    const handleSave = () => {
-        setUser(updatedUser);
-        setIsEditing(false);
-        // Here you can send updatedUser to an API to persist changes
+    const handleSave = async () => {
+        try {
+            // Retrieve the token from session storage
+            const token = sessionStorage.getItem("authToken");
+
+            if (!token) {
+                console.error("No token found in session storage");
+                return;
+            }
+
+            // Optionally send the updated user data to an API to save changes
+            await axios.put(
+                "http://localhost:8082/api/auth/user/update",
+                updatedUser,
+                {
+                    headers: {
+                        Authorization: `Basic ${token}`,
+                    },
+                }
+            );
+
+            setUser(updatedUser);
+            setIsEditing(false);
+        } catch (error) {
+            console.error("Error updating user details:", error);
+        }
     };
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="profile-container">

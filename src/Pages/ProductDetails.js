@@ -35,7 +35,7 @@ const ProductDetails = () => {
 
         try {
             const response = await axios.post(
-                ` `,
+                `http://localhost:8083/cart/${userId}/add`,
                 null, // No request body needed; parameters are passed as query params
                 {
                     params: {

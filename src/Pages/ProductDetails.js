@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import './ProductDetails.css';
 
 const ProductDetails = () => {
     const { id } = useParams(); // Get the product ID from the URL
+    const navigate = useNavigate();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const userId = 3; // Replace with actual logged-in user ID
+    
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -30,7 +31,7 @@ const ProductDetails = () => {
 
         try {
             const response = await axios.post(
-                `http://localhost:8083/cart/${userId}/add`,
+                ` `,
                 null, // No request body needed; parameters are passed as query params
                 {
                     params: {
@@ -49,8 +50,10 @@ const ProductDetails = () => {
 
     const handleBuyNow = () => {
         // Logic for direct purchase
-        console.log(`Buying ${product.name} now.`);
-        alert(`Proceeding to buy ${product.name}!`);
+        if (!product) return;
+
+        // Redirect to checkout page with product details
+        navigate(`/checkout`, { state: { productId: id, product } });
     };
 
     if (loading) return <div>Loading...</div>;

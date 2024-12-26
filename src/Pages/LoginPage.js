@@ -32,6 +32,14 @@ const LoginPage = () => {
                 const token = btoa(`${username}:${password}`); // Encoding credentials
                 sessionStorage.setItem('authToken', token);
 
+                const response = await axios.get("http://localhost:8082/api/auth/user/details", {
+                    headers: {
+                        Authorization: `Basic ${token}`,
+                    },
+                });
+
+                sessionStorage.setItem('userId', response.data.id);
+
                 // Redirect to Product Listing page
                 navigate("/products");
             }

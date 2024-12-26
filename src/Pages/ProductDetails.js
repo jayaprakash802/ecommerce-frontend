@@ -9,7 +9,11 @@ const ProductDetails = () => {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
     
+
+    const userId = sessionStorage.getItem("userId");
+
 
     useEffect(() => {
         const fetchProduct = async () => {

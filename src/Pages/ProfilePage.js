@@ -11,11 +11,11 @@ const ProfilePage = () => {
     });
     const [updatedUser, setUpdatedUser] = useState({ ...user });
     const [loading, setLoading] = useState(true);
+    
 
     useEffect(() => {
         const fetchUserDetails = async () => {
             try {
-                // Retrieve the token from session storage
                 const token = sessionStorage.getItem("authToken");
 
                 if (!token) {
@@ -24,7 +24,6 @@ const ProfilePage = () => {
                     return;
                 }
 
-                // Fetch user details with the token
                 const response = await axios.get("http://localhost:8082/api/auth/user/details", {
                     headers: {
                         Authorization: `Basic ${token}`,
@@ -56,7 +55,6 @@ const ProfilePage = () => {
 
     const handleSave = async () => {
         try {
-            // Retrieve the token from session storage
             const token = sessionStorage.getItem("authToken");
 
             if (!token) {
@@ -64,7 +62,6 @@ const ProfilePage = () => {
                 return;
             }
 
-            // Optionally send the updated user data to an API to save changes
             await axios.put(
                 "http://localhost:8082/api/auth/user/update",
                 updatedUser,
@@ -81,6 +78,8 @@ const ProfilePage = () => {
             console.error("Error updating user details:", error);
         }
     };
+
+    
 
     if (loading) {
         return <div>Loading...</div>;

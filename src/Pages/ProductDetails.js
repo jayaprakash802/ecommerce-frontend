@@ -39,7 +39,7 @@ const ProductDetails = () => {
                 null, // No request body needed; parameters are passed as query params
                 {
                     params: {
-                        productId: id,
+                        productId: id,                                              
                         quantity,
                     },
                 }

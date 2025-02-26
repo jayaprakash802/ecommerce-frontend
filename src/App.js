@@ -12,6 +12,7 @@ import AboutUs from "./Pages/AboutUs";
 import ContactUs from "./Pages/ContactUs";
 import ProfilePage from "./Pages/ProfilePage";
 import CheckOut from "./Pages/CheckOut";
+import OrderPage from "./Pages/OrderPage";
 
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
                         <Route path="/register" element={<Register />} />
                         <Route path="/products/:id" element={<ProductDetails />} />
                         <Route path="/cart" element={<CartPage />} />
+                        <Route path="/orders" element={<OrderPage />} />
                         <Route path="/about" element={<AboutUs />} />
                         <Route path="/contact" element={<ContactUs />} />
                         <Route path="/profile" element={<ProfilePage />} />

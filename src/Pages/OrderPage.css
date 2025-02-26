@@ -1,0 +1,33 @@
+.order-page {
+    padding: 20px;
+    text-align: center;
+}
+
+.order-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.order-card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 350px;
+}
+
+.order-card h2 {
+    color: #333;
+}
+
+.order-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.order-card li {
+    font-size: 14px;
+    margin: 5px 0;
+}

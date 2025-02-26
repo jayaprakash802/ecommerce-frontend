@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./CartPage.css";
 
 const CartPage = () => {
@@ -7,6 +8,7 @@ const CartPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const userId = sessionStorage.getItem("userId");
+    const navigate = useNavigate();
 
     // Fetch cart items from the API
     useEffect(() => {
@@ -45,6 +47,16 @@ const CartPage = () => {
         (total, item) => total + item.price * item.quantity,
         0
     );
+
+    // Handle checkout navigation
+    const handleCheckout = () => {
+        if (cartItems.length === 0) {
+            alert("Your cart is empty!");
+            return;
+        }
+        navigate("/checkout", { state: { cartItems, totalPrice } });
+    };
+
 
     if (loading) {
         return <p>Loading cart items...</p>;
@@ -86,7 +98,7 @@ const CartPage = () => {
                     </div>
                     <div className="cart-summary">
                         <h2>Total: ${totalPrice.toFixed(2)}</h2>
-                        <button className="checkout-button">Proceed to Checkout</button>
+                        <button className="checkout-button" onClick={handleCheckout}>Proceed to Checkout</button>
                     </div>
                 </>
             )}
